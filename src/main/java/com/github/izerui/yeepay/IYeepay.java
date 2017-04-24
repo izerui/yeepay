@@ -28,4 +28,12 @@ public interface IYeepay {
     RefundResponse refund(RefundRequest request) throws YeepayException;
 
 
+    /**
+     * 退款查询
+     * @param request
+     * @return
+     * @throws YeepayException
+     */
+    RefundQueryResponse queryRefund(RefundQueryRequest request) throws YeepayException;
+
 }

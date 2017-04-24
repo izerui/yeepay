@@ -5,49 +5,36 @@ import com.github.izerui.yeepay.utils.DigestUtil;
 import lombok.Getter;
 import lombok.Setter;
 
-
 /**
  * Created by serv on 2017/4/24.
  */
-public class OrderQueryRequest {
+public class RefundQueryRequest {
 
     /**
      * 业务类型
      */
     @Getter
-    private String p0_Cmd = "QueryOrdDetail";
+    @Setter
+    private String p0_Cmd = "RefundResults";
     /**
      * 商户编号
      */
     @Getter
     private String p1_MerId = SecretContext.getMerId();
     /**
-     * 商户订单号
+     * 退款请求号
      */
     @Getter
     @Setter
     private String p2_Order;
     /**
-     * 版本号
+     * 易宝交易流水号
      */
     @Getter
-    private String pv_Ver = "3.0";
-    /**
-     * 查询类型
-     */
-    @Getter
-    private String p3_ServiceType = "2";
+    @Setter
+    private String pb_TrxId;
 
-
-    /**
-     * 获取签名结果
-     *
-     * @return
-     */
     public String getHmac() {
-        String[] strArr = {p0_Cmd, p1_MerId, p2_Order, pv_Ver, p3_ServiceType};
-        String hmac = DigestUtil.getHmac(strArr, SecretContext.getMerSecret());
-        return hmac;
+        return DigestUtil.getHmac(new String[]{p0_Cmd, p1_MerId, p2_Order, pb_TrxId}, SecretContext.getMerSecret());
     }
-
 }

@@ -1,5 +1,6 @@
 package com.github.izerui.yeepay.converter;
 
+import com.github.izerui.yeepay.form.IVaildHmac;
 import com.github.izerui.yeepay.utils.QueryFormUtils;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.FormBody;
@@ -9,15 +10,10 @@ import org.apache.commons.beanutils.PropertyUtils;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.Map;
 
 /**
@@ -92,6 +88,11 @@ public class ConverterFactory extends Converter.Factory {
                         PropertyUtils.setProperty(t, k, v);
                     }
                 }
+
+                if(t instanceof IVaildHmac){
+                    ((IVaildHmac) t).validateHmac();
+                }
+
                 return t;
 
             } catch (Exception e) {

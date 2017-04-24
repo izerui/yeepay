@@ -1,9 +1,6 @@
 package com.github.izerui.yeepay.api;
 
-import com.github.izerui.yeepay.form.OrderQueryRequest;
-import com.github.izerui.yeepay.form.OrderQueryResponse;
-import com.github.izerui.yeepay.form.RefundRequest;
-import com.github.izerui.yeepay.form.RefundResponse;
+import com.github.izerui.yeepay.form.*;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -13,7 +10,7 @@ import retrofit2.http.QueryMap;
 import java.util.Map;
 
 /**
- * Created by serv on 2017/4/24.
+ * Created by serv on 2017/4/24.refund
  */
 public interface PayApi {
 
@@ -25,4 +22,7 @@ public interface PayApi {
 
     @POST("https://cha.yeepay.com/app-merchant-proxy/command")
     Call<RefundResponse> refund(@Body RefundRequest request);
+
+    @POST("https://www.yeepay.com/app-merchant-proxy/node")
+    Call<RefundQueryResponse> queryRefund(@Body RefundQueryRequest request);
 }

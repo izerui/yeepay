@@ -1,5 +1,6 @@
 package com.github.izerui.yeepay.form;
 
+import com.github.izerui.yeepay.SecretContext;
 import com.github.izerui.yeepay.utils.DigestUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +19,7 @@ public class PayRequest {
      * 商户编号
      */
     @Getter
-    @Setter
-    private String p1_MerId;
+    private String p1_MerId = SecretContext.getMerId();
     /**
      * 商户订单号
      */
@@ -138,11 +138,6 @@ public class PayRequest {
     @Getter
     @Setter
     private String pt_LeaveMessage;
-    /**
-     * 商户秘钥
-     */
-    @Setter
-    private String merSecret;
 
     /**
      * 获取签名结果
@@ -153,7 +148,7 @@ public class PayRequest {
         String[] strArr = new String[]{p0_Cmd, p1_MerId, p2_Order, p3_Amt, p4_Cur, p5_Pid, p6_Pcat, p7_Pdesc,
                 p8_Url, p9_SAF, pa_MP, pd_FrpId, pm_Period, pn_Unit, pr_NeedResponse,
                 pt_UserName, pt_PostalCode, pt_Address, pt_TeleNo, pt_Mobile, pt_Email, pt_LeaveMessage};
-        String hmac = DigestUtil.getHmac(strArr, merSecret);
+        String hmac = DigestUtil.getHmac(strArr, SecretContext.getMerSecret());
         return hmac;
     }
 

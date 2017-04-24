@@ -1,5 +1,6 @@
 package com.github.izerui.yeepay.form;
 
+import com.github.izerui.yeepay.SecretContext;
 import com.github.izerui.yeepay.utils.DigestUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +19,7 @@ public class RefundRequest {
      * 商户编号
      */
     @Getter
-    @Setter
-    private String p1_MerId;
+    private String p1_MerId = SecretContext.getMerId();
     /**
      * 退款请求编号
      */
@@ -50,15 +50,10 @@ public class RefundRequest {
     @Getter
     @Setter
     private String p5_Desc;
-    /**
-     * 商户秘钥
-     */
-    @Setter
-    private String merSecret;
 
     public String getHmac(){
         String[] strArr 	= {p0_Cmd, p1_MerId, p2_Order, pb_TrxId, p3_Amt, p4_Cur, p5_Desc};
-        String hmac			= DigestUtil.getHmac(strArr, merSecret);
+        String hmac			= DigestUtil.getHmac(strArr, SecretContext.getMerSecret());
         return hmac;
     }
 

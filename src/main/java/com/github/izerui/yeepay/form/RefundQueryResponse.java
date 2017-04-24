@@ -9,9 +9,7 @@ import lombok.Setter;
 /**
  * Created by serv on 2017/4/24.
  */
-public class RefundResponse implements IVaildHmac{
-
-
+public class RefundQueryResponse implements IVaildHmac{
     /**
      * 业务类型
      */
@@ -19,7 +17,7 @@ public class RefundResponse implements IVaildHmac{
     @Setter
     private String r0_Cmd;
     /**
-     * 退款结果
+     * 查询结果
      */
     @Getter
     @Setter
@@ -31,57 +29,48 @@ public class RefundResponse implements IVaildHmac{
     @Setter
     private String r2_TrxId;
     /**
-     * 退款金额
-     */
-    @Getter
-    @Setter
-    private String r3_Amt;
-    /**
-     * 交易币种
-     */
-    @Getter
-    @Setter
-    private String r4_Cur;
-    /**
      * 退款请求号
      */
     @Getter
     @Setter
     private String r4_Order;
     /**
-     * 已退手续费
+     * 退款申请结果
      */
     @Getter
     @Setter
-    private String rf_fee;
+    private String refundStatus;
     /**
-     * 签名数据
+     * 退至银行状态
      */
     @Getter
     @Setter
-    private String hmac;
+    private String refundFrpStatus;
     /**
      * 安全签名数据
      */
     @Getter
     @Setter
     private String hmac_safe;
-
+    /**
+     * 签名数据
+     */
+    @Getter
+    @Setter
+    private String hmac;
 
     /**
      * 验证签名
-     *
      * @throws YeepayException
      */
     @Override
     public void validateHmac() throws YeepayException {
-        String[] stringArr	= {r0_Cmd, r1_Code, r2_TrxId, r3_Amt, r4_Cur};
-        String localHmac 	= DigestUtil.getHmac(stringArr, SecretContext.getMerSecret());
+        String[] stringArr	= {r0_Cmd, r1_Code, r2_TrxId, r4_Order, refundStatus, refundFrpStatus};
+        String localHmac	= DigestUtil.getHmac(stringArr, SecretContext.getMerSecret());
         boolean ishmac_safe = DigestUtil.verifyCallbackHmac_safe(stringArr, hmac_safe,SecretContext.getMerSecret());
 
         if(!localHmac.equals(hmac) || !ishmac_safe) {
-            throw new YeepayException("HMAC_ERROR", "验证签名错误");
+            throw new YeepayException("HMAC_ERROR","验证签名错误");
         }
-
     }
 }

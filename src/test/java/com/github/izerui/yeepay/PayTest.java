@@ -8,12 +8,9 @@ import org.junit.Test;
  */
 public class PayTest {
 
-    private String merId = "10000457067";
-    private String merSecret = "U26po59182dV8d7654bo24o5z369408u4sQ3To9j6QuopAbo3gwj4h33mro4";
-
     @Test
     public void testPayUrl() {
-        YeepayEngine engine = new YeepayEngine(merId,merSecret);
+        YeepayEngine engine = new YeepayEngine();
 
         PayRequest request = new PayRequest();
         request.setP5_Pid("的点点滴滴");
@@ -25,7 +22,7 @@ public class PayTest {
 
     @Test
     public void testQueryOrder() throws YeepayException {
-        YeepayEngine engine = new YeepayEngine(merId,merSecret);
+        YeepayEngine engine = new YeepayEngine();
 
         OrderQueryRequest request = new OrderQueryRequest();
         request.setP2_Order("123");
@@ -36,7 +33,7 @@ public class PayTest {
 
     @Test
     public void testRefund() throws YeepayException {
-        YeepayEngine engine = new YeepayEngine(merId,merSecret);
+        YeepayEngine engine = new YeepayEngine();
 
         RefundRequest request = new RefundRequest();
         request.setP2_Order("123");

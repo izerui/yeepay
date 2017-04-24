@@ -25,4 +25,7 @@ public interface PayApi {
 
     @POST("https://www.yeepay.com/app-merchant-proxy/node")
     Call<RefundQueryResponse> queryRefund(@Body RefundQueryRequest request);
+
+    @POST("https://cha.yeepay.com/app-merchant-proxy/command")
+    Call<OrderCancelResponse> cancelOrder(@Body OrderCancelRequest request);
 }

@@ -42,4 +42,25 @@ public class PayTest {
         RefundResponse refund = engine.refund(request);
         System.out.println(refund.getR3_Amt());
     }
+
+    @Test
+    public void testRefundQuery() throws YeepayException {
+        YeepayEngine engine = new YeepayEngine();
+
+        RefundQueryRequest request = new RefundQueryRequest();
+        request.setP2_Order("123");
+        request.setPb_TrxId("868855800142162B");
+        RefundQueryResponse refund = engine.queryRefund(request);
+        System.out.println(refund.getRefundFrpStatus());
+    }
+
+    @Test
+    public void testCancelOrder() throws YeepayException {
+        YeepayEngine engine = new YeepayEngine();
+
+        OrderCancelRequest request = new OrderCancelRequest();
+        request.setPb_TrxId("868855800142162B");
+        OrderCancelResponse refund = engine.cancelOrder(request);
+        System.out.println(refund.getR1_Code());
+    }
 }

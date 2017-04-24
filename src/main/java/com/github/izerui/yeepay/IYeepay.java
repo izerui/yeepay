@@ -36,4 +36,12 @@ public interface IYeepay {
      */
     RefundQueryResponse queryRefund(RefundQueryRequest request) throws YeepayException;
 
+    /**
+     * 撤销订单
+     * @param request
+     * @return
+     * @throws YeepayException
+     */
+    OrderCancelResponse cancelOrder(OrderCancelRequest request) throws YeepayException;
+
 }

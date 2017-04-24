@@ -28,6 +28,7 @@ public class YeepayEngine implements IYeepay {
     public YeepayEngine(OkHttpClient client) {
         OkHttpClient newClient = new OkHttpClient.Builder()
                 .addInterceptor(new HttpLoggingInterceptor())
+                .addInterceptor(new HttpLoggingInterceptor())
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.yeepay.com/")
@@ -46,38 +47,34 @@ public class YeepayEngine implements IYeepay {
     @Override
     public OrderQueryResponse queryOrder(OrderQueryRequest request) throws YeepayException {
         Call<OrderQueryResponse> post = api.queryOrder(request);
-        try {
-            Response<OrderQueryResponse> execute = post.execute();
-            OrderQueryResponse body = execute.body();
-
-            return body;
-        } catch (IOException e) {
-            throw new YeepayException("-999","请求失败");
-        }
+        return execute(post);
     }
 
     @Override
     public RefundResponse refund(RefundRequest request) throws YeepayException {
         Call<RefundResponse> post = api.refund(request);
-        try {
-            Response<RefundResponse> execute = post.execute();
-            RefundResponse body = execute.body();
-
-            return body;
-        } catch (Exception e) {
-            throw new YeepayException("-999","请求失败");
-        }
+        return execute(post);
     }
 
     @Override
     public RefundQueryResponse queryRefund(RefundQueryRequest request) throws YeepayException {
         Call<RefundQueryResponse> post = api.queryRefund(request);
-        try {
-            Response<RefundQueryResponse> execute = post.execute();
-            RefundQueryResponse body = execute.body();
+        return execute(post);
+    }
 
-            return body;
-        } catch (Exception e) {
+
+    @Override
+    public OrderCancelResponse cancelOrder(OrderCancelRequest request) throws YeepayException {
+        Call<OrderCancelResponse> post = api.cancelOrder(request);
+        return execute(post);
+    }
+
+
+    private <T> T execute(Call<T> post) throws YeepayException{
+        try {
+            Response<T> execute = post.execute();
+            return execute.body();
+        } catch (IOException e) {
             throw new YeepayException("-999","请求失败");
         }
     }

@@ -28,12 +28,12 @@ public class OrderQueryRequest {
     @Setter
     private String p2_Order;
     /**
-     * 版本号
+     * 版本号 (固定值)
      */
     @Getter
     private String pv_Ver = "3.0";
     /**
-     * 查询类型
+     * 查询类型 (默认值为2)
      */
     @Getter
     private String p3_ServiceType = "2";

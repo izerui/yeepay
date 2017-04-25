@@ -29,7 +29,7 @@ public class OrderCancelRequest {
     @Setter
     private String pb_TrxId;
     /**
-     * 版本号
+     * 版本号 (固定值)
      */
     @Getter
     @Setter

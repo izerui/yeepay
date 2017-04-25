@@ -18,7 +18,7 @@ public class OrderQueryResponse implements IVaildHmac{
     @Getter
     private String r0_Cmd;
     /**
-     * 查询结果
+     * 查询结果 (1：查询正常；50：订单不存在)
      */
     @Setter
     @Getter
@@ -84,7 +84,7 @@ public class OrderQueryResponse implements IVaildHmac{
     @Getter
     private String rz_RefundAmount;
     /**
-     * 订单支付状态
+     * 订单支付状态 (INIT：未支付 CANCELED：已取消 SUCCESS：已支付)
      */
     @Setter
     @Getter
@@ -96,7 +96,7 @@ public class OrderQueryResponse implements IVaildHmac{
     @Getter
     private String rc_RefundCount;
     /**
-     * 已退款金额
+     * 已退款金额 (单位:元)
      */
     @Setter
     @Getter

@@ -21,6 +21,8 @@ public class OrderCancelResponse implements IVaildHmac{
     private String r0_Cmd;
     /**
      * 撤销结果
+     * <li></li>1： 撤销成功
+     * <li></li>53：订单已经成功，不可撤销。
      */
     @Getter
     @Setter

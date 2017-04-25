@@ -3,6 +3,7 @@ package com.github.izerui.yeepay.form;
 import com.github.izerui.yeepay.SecretContext;
 import com.github.izerui.yeepay.utils.DigestUtil;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 /**
@@ -15,23 +16,27 @@ public class RefundQueryRequest {
      */
     @Getter
     @Setter
+    @NonNull
     private String p0_Cmd = "RefundResults";
     /**
      * 商户编号 (商户在易宝支付系统的 唯一身份标识)
      */
     @Getter
+    @NonNull
     private String p1_MerId = SecretContext.getMerId();
     /**
      * 退款请求号
      */
     @Getter
     @Setter
+    @NonNull
     private String p2_Order;
     /**
      * 易宝交易流水号
      */
     @Getter
     @Setter
+    @NonNull
     private String pb_TrxId;
 
     public String getHmac() {

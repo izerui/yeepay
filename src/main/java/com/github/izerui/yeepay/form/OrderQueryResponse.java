@@ -84,7 +84,12 @@ public class OrderQueryResponse implements IVaildHmac{
     @Getter
     private String rz_RefundAmount;
     /**
-     * 订单支付状态 (INIT：未支付 CANCELED：已取消 SUCCESS：已支付)
+     * 订单支付状态
+     * <ul>
+     *     <li>INIT：未支付
+     *     <li>CANCELED：已取消
+     *     <li>SUCCESS：已支付
+     * </ul>
      */
     @Setter
     @Getter

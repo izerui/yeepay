@@ -1,7 +1,10 @@
 package com.github.izerui.yeepay;
 
 import com.github.izerui.yeepay.form.*;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.junit.Test;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by serv on 2017/4/24.
@@ -32,15 +35,15 @@ public class PayTest {
     }
 
     @Test
-    public void testRefund() throws YeepayException {
+    public void testRefund() throws YeepayException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         YeepayEngine engine = new YeepayEngine();
 
         RefundRequest request = new RefundRequest();
-        request.setP2_Order("123");
+        request.setP2_Order("1222223");
         request.setP3_Amt("0.01");
-        request.setPb_TrxId("868855800142162B");
+        request.setPb_TrxId("868855800142162222B");
         RefundResponse refund = engine.refund(request);
-        System.out.println(refund.getR3_Amt());
+        System.out.println(PropertyUtils.describe(refund).toString());
     }
 
     @Test

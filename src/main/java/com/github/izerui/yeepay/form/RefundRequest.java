@@ -3,6 +3,7 @@ package com.github.izerui.yeepay.form;
 import com.github.izerui.yeepay.SecretContext;
 import com.github.izerui.yeepay.utils.DigestUtil;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 /**
@@ -13,15 +14,16 @@ public class RefundRequest {
      * 业务类型 (固定值)
      */
     @Getter
-    @Setter
+    @NonNull
     private String p0_Cmd = "RefundOrd";
     /**
      * 商户编号 (商户在易宝支付系统的 唯一身份标识)
      */
     @Getter
+    @NonNull
     private String p1_MerId = SecretContext.getMerId();
     /**
-     * 退款请求编号
+     * 退款请求编号 (若填写则与响应参数中的r4_order相同，用于退款查询)
      */
     @Getter
     @Setter
@@ -31,18 +33,20 @@ public class RefundRequest {
      */
     @Getter
     @Setter
+    @NonNull
     private String pb_TrxId;
     /**
-     * 退款金额
+     * 退款金额 (单位元)
      */
     @Getter
     @Setter
+    @NonNull
     private String p3_Amt;
     /**
      * 交易币种 (固定值)
      */
     @Getter
-    @Setter
+    @NonNull
     private String p4_Cur = "CNY";
     /**
      * 退款说明

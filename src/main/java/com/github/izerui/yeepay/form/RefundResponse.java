@@ -13,7 +13,7 @@ public class RefundResponse implements IVaildHmac{
 
 
     /**
-     * 业务类型
+     * 业务类型 (固定值)
      */
     @Getter
     @Setter
@@ -37,7 +37,7 @@ public class RefundResponse implements IVaildHmac{
     @Setter
     private String r3_Amt;
     /**
-     * 交易币种
+     * 交易币种 (固定值)
      */
     @Getter
     @Setter

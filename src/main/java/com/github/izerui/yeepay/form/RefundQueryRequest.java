@@ -11,13 +11,13 @@ import lombok.Setter;
 public class RefundQueryRequest {
 
     /**
-     * 业务类型
+     * 业务类型 (固定值)
      */
     @Getter
     @Setter
     private String p0_Cmd = "RefundResults";
     /**
-     * 商户编号
+     * 商户编号 (商户在易宝支付系统的 唯一身份标识)
      */
     @Getter
     private String p1_MerId = SecretContext.getMerId();

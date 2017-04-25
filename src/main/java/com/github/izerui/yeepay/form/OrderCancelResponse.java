@@ -14,7 +14,7 @@ public class OrderCancelResponse implements IVaildHmac{
 
 
     /**
-     * 业务类型
+     * 业务类型 (固定值)
      */
     @Getter
     @Setter

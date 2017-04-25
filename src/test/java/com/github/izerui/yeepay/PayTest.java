@@ -18,6 +18,7 @@ public class PayTest {
         PayRequest request = new PayRequest();
         request.setP5_Pid("的点点滴滴");
         request.setP3_Amt("0.01");
+//        request.setPd_FrpId("CMBCHINA-NET-B2C");
         String url = engine.getPayURL(request);
         System.out.println(url);
 

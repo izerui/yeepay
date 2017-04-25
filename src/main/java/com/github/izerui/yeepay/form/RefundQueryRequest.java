@@ -1,6 +1,7 @@
 package com.github.izerui.yeepay.form;
 
-import com.github.izerui.yeepay.SecretContext;
+import com.github.izerui.yeepay.YeepayEngine;
+import com.github.izerui.yeepay.YeepayException;
 import com.github.izerui.yeepay.utils.DigestUtil;
 import lombok.Getter;
 import lombok.NonNull;
@@ -23,7 +24,7 @@ public class RefundQueryRequest {
      */
     @Getter
     @NonNull
-    private String p1_MerId = SecretContext.getMerId();
+    private String p1_MerId = YeepayEngine.getMerId();
     /**
      * 退款请求号
      */
@@ -39,7 +40,10 @@ public class RefundQueryRequest {
     @NonNull
     private String pb_TrxId;
 
-    public String getHmac() {
-        return DigestUtil.getHmac(new String[]{p0_Cmd, p1_MerId, p2_Order, pb_TrxId}, SecretContext.getMerSecret());
+    public RefundQueryRequest() throws YeepayException {
+    }
+
+    public String getHmac() throws YeepayException {
+        return DigestUtil.getHmac(new String[]{p0_Cmd, p1_MerId, p2_Order, pb_TrxId}, YeepayEngine.getMerSecret());
     }
 }

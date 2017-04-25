@@ -4,9 +4,7 @@ import com.github.izerui.yeepay.api.PayApi;
 import com.github.izerui.yeepay.converter.ConverterFactory;
 import com.github.izerui.yeepay.form.*;
 import com.github.izerui.yeepay.utils.QueryFormUtils;
-import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -16,8 +14,12 @@ import java.io.IOException;
 /**
  * Created by serv on 2017/4/22.
  */
-@Slf4j
 public class YeepayEngine implements IYeepay {
+
+    /** 商户编号 */
+    private static String merId;
+    /** 商户秘钥 */
+    private static String merSecret;
 
     private PayApi api;
 
@@ -32,6 +34,7 @@ public class YeepayEngine implements IYeepay {
                 .client(client).build();
         this.api = retrofit.create(PayApi.class);
     }
+
 
 
     public String getPayURL(PayRequest request) {
@@ -73,5 +76,27 @@ public class YeepayEngine implements IYeepay {
         } catch (IOException e) {
             throw new YeepayException("-999", "请求失败");
         }
+    }
+
+    public static String getMerId() throws YeepayException {
+        if(merId==null){
+            throw new YeepayException("商户编号未设置","-990");
+        }
+        return merId;
+    }
+
+    public static void setMerId(String merId) {
+        YeepayEngine.merId = merId;
+    }
+
+    public static String getMerSecret() throws YeepayException {
+        if(merSecret==null){
+            throw new YeepayException("商户秘钥未设置","-991");
+        }
+        return merSecret;
+    }
+
+    public static void setMerSecret(String merSecret) {
+        YeepayEngine.merSecret = merSecret;
     }
 }

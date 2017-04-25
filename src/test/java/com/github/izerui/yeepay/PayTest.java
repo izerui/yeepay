@@ -1,6 +1,7 @@
 package com.github.izerui.yeepay;
 
 import com.github.izerui.yeepay.form.*;
+import com.github.izerui.yeepay.utils.QueryFormUtils;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -20,6 +21,9 @@ public class PayTest {
 
     @Before
     public void setup(){
+        YeepayEngine.setMerId("10000457067");
+        YeepayEngine.setMerSecret("U26po59182dV8d7654bo24o5z369408u4sQ3To9j6QuopAbo3gwj4h33mro4");
+
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .connectionPool(new ConnectionPool(5,5,TimeUnit.MINUTES))
@@ -27,11 +31,12 @@ public class PayTest {
                 .readTimeout(15,TimeUnit.SECONDS)
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
+
         engine = new YeepayEngine(client);
     }
 
     @Test
-    public void testPayUrl() {
+    public void testPayUrl() throws YeepayException {
 //        YeepayEngine engine = new YeepayEngine();
 
         PayRequest request = new PayRequest();
@@ -44,46 +49,46 @@ public class PayTest {
     }
 
     @Test
-    public void testQueryOrder() throws YeepayException {
+    public void testQueryOrder() throws YeepayException{
 //        YeepayEngine engine = new YeepayEngine();
 
         OrderQueryRequest request = new OrderQueryRequest();
         request.setP2_Order("123");
         OrderQueryResponse order = engine.queryOrder(request);
-        System.out.println(order.getR3_Amt());
+        System.out.println(QueryFormUtils.getEncodedQueryParams(order).toString());
 
     }
 
     @Test
-    public void testRefund() throws YeepayException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+    public void testRefund() throws YeepayException{
 //        YeepayEngine engine = new YeepayEngine();
 
         RefundRequest request = new RefundRequest();
         request.setP2_Order("1222223");
         request.setP3_Amt("0.01");
         request.setPb_TrxId("868855800142162222B");
-        RefundResponse refund = engine.refund(request);
-        System.out.println(PropertyUtils.describe(refund).toString());
+        RefundResponse response = engine.refund(request);
+        System.out.println(QueryFormUtils.getEncodedQueryParams(response).toString());
     }
 
     @Test
-    public void testRefundQuery() throws YeepayException {
+    public void testRefundQuery() throws YeepayException{
 //        YeepayEngine engine = new YeepayEngine();
 
         RefundQueryRequest request = new RefundQueryRequest();
         request.setP2_Order("123");
         request.setPb_TrxId("868855800142162B");
-        RefundQueryResponse refund = engine.queryRefund(request);
-        System.out.println(refund.getRefundFrpStatus());
+        RefundQueryResponse response = engine.queryRefund(request);
+        System.out.println(QueryFormUtils.getEncodedQueryParams(response).toString());
     }
 
     @Test
-    public void testCancelOrder() throws YeepayException {
+    public void testCancelOrder() throws YeepayException{
 //        YeepayEngine engine = new YeepayEngine();
 
         OrderCancelRequest request = new OrderCancelRequest();
         request.setPb_TrxId("868855800142162B");
-        OrderCancelResponse refund = engine.cancelOrder(request);
-        System.out.println(refund.getR1_Code());
+        OrderCancelResponse response = engine.cancelOrder(request);
+        System.out.println(QueryFormUtils.getEncodedQueryParams(response).toString());
     }
 }

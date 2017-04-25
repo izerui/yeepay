@@ -1,7 +1,5 @@
 package com.github.izerui.yeepay.utils;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -13,7 +11,6 @@ import java.util.Map;
 /**
  * Created by serv on 2017/4/24.
  */
-@Slf4j
 public class QueryFormUtils {
 
     public static Map<String,String> getEncodedQueryParams(Object obj){
@@ -33,7 +30,7 @@ public class QueryFormUtils {
             }
 
         } catch (Exception e) {
-            log.error(e.getMessage(),e);
+            e.printStackTrace();
         }
         return params;
     }

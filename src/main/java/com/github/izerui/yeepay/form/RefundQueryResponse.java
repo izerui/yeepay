@@ -1,6 +1,6 @@
 package com.github.izerui.yeepay.form;
 
-import com.github.izerui.yeepay.SecretContext;
+import com.github.izerui.yeepay.YeepayEngine;
 import com.github.izerui.yeepay.YeepayException;
 import com.github.izerui.yeepay.utils.DigestUtil;
 import lombok.Getter;
@@ -75,8 +75,8 @@ public class RefundQueryResponse implements IVaildHmac{
     @Override
     public void validateHmac() throws YeepayException {
         String[] stringArr	= {r0_Cmd, r1_Code, r2_TrxId, r4_Order, refundStatus, refundFrpStatus};
-        String localHmac	= DigestUtil.getHmac(stringArr, SecretContext.getMerSecret());
-        boolean ishmac_safe = DigestUtil.verifyCallbackHmac_safe(stringArr, hmac_safe,SecretContext.getMerSecret());
+        String localHmac	= DigestUtil.getHmac(stringArr, YeepayEngine.getMerSecret());
+        boolean ishmac_safe = DigestUtil.verifyCallbackHmac_safe(stringArr, hmac_safe,YeepayEngine.getMerSecret());
 
         if(!localHmac.equals(hmac) || !ishmac_safe) {
             throw new YeepayException("HMAC_ERROR","验证签名错误");

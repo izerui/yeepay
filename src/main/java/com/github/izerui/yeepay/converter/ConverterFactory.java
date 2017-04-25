@@ -2,7 +2,6 @@ package com.github.izerui.yeepay.converter;
 
 import com.github.izerui.yeepay.form.IVaildHmac;
 import com.github.izerui.yeepay.utils.QueryFormUtils;
-import lombok.extern.slf4j.Slf4j;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -19,7 +18,6 @@ import java.util.Map;
 /**
  * Created by serv on 2017/4/24.
  */
-@Slf4j
 public class ConverterFactory extends Converter.Factory {
 
     @Override
@@ -82,8 +80,9 @@ public class ConverterFactory extends Converter.Factory {
                     String[] split = line.split("=");
                     String k = split[0];
                     String v = split.length > 1 ? URLDecoder.decode(split[1], "GBK") : null;
+
                     if (!PropertyUtils.isWriteable(t, k)) {
-                        log.error(((Class) type).getName() + " 缺少接收属性 : [" + k + "]");
+                        System.out.println(((Class) type).getName() + " 缺少接收属性 : [" + k + "]");
                     } else {
                         PropertyUtils.setProperty(t, k, v);
                     }
@@ -96,7 +95,7 @@ public class ConverterFactory extends Converter.Factory {
                 return t;
 
             } catch (Exception e) {
-                log.error(e.getMessage(),e);
+                e.printStackTrace();
                 return null;
             }
         }

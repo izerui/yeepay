@@ -26,18 +26,15 @@ public class YeepayEngine implements IYeepay {
     }
 
     public YeepayEngine(OkHttpClient client) {
-        OkHttpClient newClient = new OkHttpClient.Builder()
-                .addInterceptor(new HttpLoggingInterceptor())
-                .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.yeepay.com/")
                 .addConverterFactory(new ConverterFactory())
-                .client(newClient).build();
+                .client(client).build();
         this.api = retrofit.create(PayApi.class);
     }
 
 
-    public String getPayURL(PayRequest request){
+    public String getPayURL(PayRequest request) {
         Call<Void> call = api.payUrl(QueryFormUtils.getEncodedQueryParams(request));
         return call.request().url().toString();
     }
@@ -69,12 +66,12 @@ public class YeepayEngine implements IYeepay {
     }
 
 
-    private <T> T execute(Call<T> post) throws YeepayException{
+    private <T> T execute(Call<T> post) throws YeepayException {
         try {
             Response<T> execute = post.execute();
             return execute.body();
         } catch (IOException e) {
-            throw new YeepayException("-999","请求失败");
+            throw new YeepayException("-999", "请求失败");
         }
     }
 }

@@ -2,6 +2,8 @@ package com.github.izerui.yeepay;
 
 import com.github.izerui.yeepay.form.*;
 
+import java.util.Map;
+
 /**
  * Created by serv on 2017/4/22.
  */
@@ -43,5 +45,13 @@ public interface IYeepay {
      * @throws YeepayException
      */
     OrderCancelResponse cancelOrder(OrderCancelRequest request) throws YeepayException;
+
+
+    /**
+     * 验证通知的签名
+     * @param request
+     * @throws YeepayException
+     */
+    void validateCallback(Map<String,String> request) throws YeepayException;
 
 }

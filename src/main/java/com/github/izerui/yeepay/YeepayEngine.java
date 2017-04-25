@@ -28,7 +28,6 @@ public class YeepayEngine implements IYeepay {
     public YeepayEngine(OkHttpClient client) {
         OkHttpClient newClient = new OkHttpClient.Builder()
                 .addInterceptor(new HttpLoggingInterceptor())
-                .addInterceptor(new HttpLoggingInterceptor())
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.yeepay.com/")

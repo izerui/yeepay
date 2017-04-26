@@ -76,7 +76,7 @@ public class PayTest {
 //        YeepayEngine engine = new YeepayEngine();
 
         RefundQueryRequest request = new RefundQueryRequest();
-        request.setP2_Order("123");
+        request.setP2_Order("ddd");
         request.setPb_TrxId("868855800142162B");
         RefundQueryResponse response = engine.queryRefund(request);
         System.out.println(QueryFormUtils.getEncodedQueryParams(response).toString());
@@ -87,7 +87,7 @@ public class PayTest {
 //        YeepayEngine engine = new YeepayEngine();
 
         OrderCancelRequest request = new OrderCancelRequest();
-        request.setPb_TrxId("868855800142162B");
+        request.setPb_TrxId("123");
         OrderCancelResponse response = engine.cancelOrder(request);
         System.out.println(QueryFormUtils.getEncodedQueryParams(response).toString());
     }

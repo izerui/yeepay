@@ -10,7 +10,7 @@ import retrofit2.http.QueryMap;
 import java.util.Map;
 
 /**
- * Created by serv on 2017/4/24.refund
+ * Created by serv on 2017/4/24
  */
 public interface PayApi {
 

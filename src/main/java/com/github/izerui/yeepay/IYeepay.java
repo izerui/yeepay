@@ -27,7 +27,6 @@ public interface IYeepay {
      *
      * @param request
      * @return
-     * @
      */
     RefundResponse refund(RefundRequest request);
 
@@ -37,7 +36,6 @@ public interface IYeepay {
      *
      * @param request
      * @return
-     * @
      */
     RefundQueryResponse queryRefund(RefundQueryRequest request);
 
@@ -46,7 +44,6 @@ public interface IYeepay {
      *
      * @param request
      * @return
-     * @
      */
     OrderCancelResponse cancelOrder(OrderCancelRequest request);
 
@@ -55,7 +52,6 @@ public interface IYeepay {
      * 验证通知的签名
      *
      * @param request
-     * @
      */
     void validateCallback(Map<String, String> request);
 

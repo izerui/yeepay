@@ -42,19 +42,19 @@ public class OrderQueryResponse implements IVaildHmac {
     @Getter
     private String r4_Cur;
     /**
-     * 商品名称 (1、若为中文，请注意转 码：GBK 或GB2312。 2、商品名称如果为空， 默认显示「商品名称」 四个汉字。 3、当支付方式为网银一 键时此参数必传。)
+     * 商品名称
      */
     @Setter
     @Getter
     private String r5_Pid;
     /**
-     * 商户订单号 (1、若商户填写，则填写的订单号必须在商户的交易中唯一；2、若商户不填写，易宝支付会自动生成随机的商户订单号；3、已付或撤销的订单号，商户不能重复提交。)
+     * 商户订单号
      */
     @Setter
     @Getter
     private String r6_Order;
     /**
-     * 商户扩展信息 (若为中文，请注意转 码：GBK 或GB2312。)
+     * 商户扩展信息
      */
     @Setter
     @Getter

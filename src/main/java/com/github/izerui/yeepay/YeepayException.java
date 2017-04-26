@@ -3,7 +3,7 @@ package com.github.izerui.yeepay;
 /**
  * Created by serv on 2017/4/24.
  */
-public class YeepayException extends Exception{
+public class YeepayException extends RuntimeException {
 
     private String errCode;
 

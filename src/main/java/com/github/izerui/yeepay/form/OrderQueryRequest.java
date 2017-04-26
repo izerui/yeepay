@@ -1,7 +1,6 @@
 package com.github.izerui.yeepay.form;
 
 import com.github.izerui.yeepay.YeepayEngine;
-import com.github.izerui.yeepay.YeepayException;
 import com.github.izerui.yeepay.utils.DigestUtil;
 import lombok.Getter;
 import lombok.NonNull;
@@ -45,16 +44,13 @@ public class OrderQueryRequest {
     @NonNull
     private String p3_ServiceType = "2";
 
-    public OrderQueryRequest() throws YeepayException {
-    }
-
 
     /**
      * 获取签名结果
      *
      * @return
      */
-    public String getHmac() throws YeepayException {
+    public String getHmac() {
         String[] strArr = {p0_Cmd, p1_MerId, p2_Order, pv_Ver, p3_ServiceType};
         String hmac = DigestUtil.getHmac(strArr, YeepayEngine.getMerSecret());
         return hmac;

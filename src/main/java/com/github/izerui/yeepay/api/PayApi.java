@@ -15,7 +15,7 @@ import java.util.Map;
 public interface PayApi {
 
     @GET("https://www.yeepay.com/app-merchant-proxy/node")
-    Call<Void> payUrl(@QueryMap(encoded = true) Map<String,String> params);
+    Call<Void> payUrl(@QueryMap(encoded = true) Map<String, String> params);
 
     @POST("https://cha.yeepay.com/app-merchant-proxy/command")
     Call<OrderQueryResponse> queryOrder(@Body OrderQueryRequest request);

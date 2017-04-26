@@ -36,7 +36,7 @@ public class PayTest {
     }
 
     @Test
-    public void testPayUrl() throws YeepayException {
+    public void testPayUrl()  {
 //        YeepayEngine engine = new YeepayEngine();
 
         PayRequest request = new PayRequest();
@@ -49,7 +49,7 @@ public class PayTest {
     }
 
     @Test
-    public void testQueryOrder() throws YeepayException{
+    public void testQueryOrder() {
 //        YeepayEngine engine = new YeepayEngine();
 
         OrderQueryRequest request = new OrderQueryRequest();
@@ -60,7 +60,7 @@ public class PayTest {
     }
 
     @Test
-    public void testRefund() throws YeepayException{
+    public void testRefund() {
 //        YeepayEngine engine = new YeepayEngine();
 
         RefundRequest request = new RefundRequest();
@@ -72,7 +72,7 @@ public class PayTest {
     }
 
     @Test
-    public void testRefundQuery() throws YeepayException{
+    public void testRefundQuery() {
 //        YeepayEngine engine = new YeepayEngine();
 
         RefundQueryRequest request = new RefundQueryRequest();
@@ -83,7 +83,7 @@ public class PayTest {
     }
 
     @Test
-    public void testCancelOrder() throws YeepayException{
+    public void testCancelOrder() {
 //        YeepayEngine engine = new YeepayEngine();
 
         OrderCancelRequest request = new OrderCancelRequest();

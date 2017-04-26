@@ -1,7 +1,6 @@
 package com.github.izerui.yeepay.form;
 
 import com.github.izerui.yeepay.YeepayEngine;
-import com.github.izerui.yeepay.YeepayException;
 import com.github.izerui.yeepay.utils.DigestUtil;
 import lombok.Getter;
 import lombok.NonNull;
@@ -83,52 +82,52 @@ public class PayRequest {
      * 支付通道编号 (1、若不填写，则直接跳 转到易宝支付的默认支 付网关。 2、若填写，则直接跳到 对应的银行支付页面。)
      * <p>B2C通道:</p>
      * <ul>
-     *     <li>ICBC-NET-B2C 工商银行
-     *     <li>CMBCHINA-NET-B2C 招商银行
-     *     <li>CCB-NET-B2C 建设银行
-     *     <li>BOCO-NET-B2C 交通银行[借]
-     *     <li>CIB-NET-B2C 兴业银行
-     *     <li>CMBC-NET-B2C 中国民生银行
-     *     <li>CEB-NET-B2C 光大银行
-     *     <li>BOC-NET-B2C 中国银行
-     *     <li>PINGANBANK-NET-B2C 平安银行
-     *     <li>ECITIC-NET-B2C 中信银行
-     *     <li>SDB-NET-B2C 深圳发展银行
-     *     <li>GDB-NET-B2C 广发银行
-     *     <li>SHB-NET-B2C 上海银行
-     *     <li>SPDB-NET-B2C 上海浦东发展银行
-     *     <li>HXB-NET-B2C 华夏银行「借」
-     *     <li>BCCB-NET-B2C 北京银行
-     *     <li>ABC-NET-B2C 中国农业银行
-     *     <li>POST-NET-B2C 中国邮政储蓄银行「借」
-     *     <li>BJRCB-NET-B2C 北京农村商业银行「借」-暂不可用
+     * <li>ICBC-NET-B2C 工商银行
+     * <li>CMBCHINA-NET-B2C 招商银行
+     * <li>CCB-NET-B2C 建设银行
+     * <li>BOCO-NET-B2C 交通银行[借]
+     * <li>CIB-NET-B2C 兴业银行
+     * <li>CMBC-NET-B2C 中国民生银行
+     * <li>CEB-NET-B2C 光大银行
+     * <li>BOC-NET-B2C 中国银行
+     * <li>PINGANBANK-NET-B2C 平安银行
+     * <li>ECITIC-NET-B2C 中信银行
+     * <li>SDB-NET-B2C 深圳发展银行
+     * <li>GDB-NET-B2C 广发银行
+     * <li>SHB-NET-B2C 上海银行
+     * <li>SPDB-NET-B2C 上海浦东发展银行
+     * <li>HXB-NET-B2C 华夏银行「借」
+     * <li>BCCB-NET-B2C 北京银行
+     * <li>ABC-NET-B2C 中国农业银行
+     * <li>POST-NET-B2C 中国邮政储蓄银行「借」
+     * <li>BJRCB-NET-B2C 北京农村商业银行「借」-暂不可用
      * </ul>
      * <p>B2B通道:</p>
      * <ul>
-     *     <li>ICBC-NET-B2B 工商银行
-     *     <li>CMBCHINA-NET-B2B 招商银行
-     *     <li>ABC-NET-B2B 中国农业银行
-     *     <li>CCB-NET-B2B 建设银行
-     *     <li>CEB-NET-B2B 光大银行
-     *     <li>BOC-NET-B2B 中国银行
-     *     <li>SDB-NET-B2B 平安银行
-     *     <li>SPDB-NET-B2B 上海浦东发展银行
-     *     <li>CMBC-NET-B2B 民生银行
-     *     <li>SDB-NET-B2B 深圳发展银行
-     *     <li>BOCO-NET-B2B 交通银行
-     *     <li>HXB-NET-B2B 华夏银行
-     *     <li>BCCB-NET-B2B 北京银行
-     *     <li>ECITIC-NET-B2B 中信银行
-     *     <li>CIB-NET-B2B 兴业银行
-     *     <li>GDB-NET-B2B 广发银行
+     * <li>ICBC-NET-B2B 工商银行
+     * <li>CMBCHINA-NET-B2B 招商银行
+     * <li>ABC-NET-B2B 中国农业银行
+     * <li>CCB-NET-B2B 建设银行
+     * <li>CEB-NET-B2B 光大银行
+     * <li>BOC-NET-B2B 中国银行
+     * <li>SDB-NET-B2B 平安银行
+     * <li>SPDB-NET-B2B 上海浦东发展银行
+     * <li>CMBC-NET-B2B 民生银行
+     * <li>SDB-NET-B2B 深圳发展银行
+     * <li>BOCO-NET-B2B 交通银行
+     * <li>HXB-NET-B2B 华夏银行
+     * <li>BCCB-NET-B2B 北京银行
+     * <li>ECITIC-NET-B2B 中信银行
+     * <li>CIB-NET-B2B 兴业银行
+     * <li>GDB-NET-B2B 广发银行
      * </ul>
      * <p>网银一键支付通道:</p>
      * <ul>
-     *     <li>YJZF-NET-B2C 网银一键支付通道
+     * <li>YJZF-NET-B2C 网银一键支付通道
      * </ul>
      * <p>会员支付:</p>
      * <ul>
-     *     <li>1000000-NET 会员支付
+     * <li>1000000-NET 会员支付
      * </ul>
      */
     @Getter
@@ -194,11 +193,8 @@ public class PayRequest {
     @Setter
     private String pt_LeaveMessage;
 
-    public PayRequest() throws YeepayException {
-    }
 
-
-    public String getHmac() throws YeepayException {
+    public String getHmac() {
         String[] strArr = new String[]{p0_Cmd, p1_MerId, p2_Order, p3_Amt, p4_Cur, p5_Pid, p6_Pcat, p7_Pdesc,
                 p8_Url, p9_SAF, pa_MP, pd_FrpId, pm_Period, pn_Unit, pr_NeedResponse,
                 pt_UserName, pt_PostalCode, pt_Address, pt_TeleNo, pt_Mobile, pt_Email, pt_LeaveMessage};

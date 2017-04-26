@@ -9,7 +9,7 @@ import lombok.Setter;
 /**
  * Created by serv on 2017/4/24.
  */
-public class OrderQueryResponse implements IVaildHmac{
+public class OrderQueryResponse implements IVaildHmac {
 
     /**
      * 业务类型 (固定值)
@@ -86,9 +86,9 @@ public class OrderQueryResponse implements IVaildHmac{
     /**
      * 订单支付状态
      * <ul>
-     *     <li>INIT：未支付
-     *     <li>CANCELED：已取消
-     *     <li>SUCCESS：已支付
+     * <li>INIT：未支付
+     * <li>CANCELED：已取消
+     * <li>SUCCESS：已支付
      * </ul>
      */
     @Setter
@@ -127,20 +127,16 @@ public class OrderQueryResponse implements IVaildHmac{
     private String errorMsg;
 
 
-    /**
-     * 验证签名
-     * @throws YeepayException
-     */
     @Override
-    public void validateHmac() throws YeepayException {
-        String[] stringArr	= {r0_Cmd, r1_Code, r2_TrxId, r3_Amt, r4_Cur, r5_Pid, r6_Order, r8_MP,
+    public void validateHmac() {
+        String[] stringArr = {r0_Cmd, r1_Code, r2_TrxId, r3_Amt, r4_Cur, r5_Pid, r6_Order, r8_MP,
                 rw_RefundRequestID, rx_CreateTime, ry_FinshTime, rz_RefundAmount, rb_PayStatus,
                 rc_RefundCount, rd_RefundAmt};
-        String localHmac	= DigestUtil.getHmac(stringArr, YeepayEngine.getMerSecret());
-        boolean ishmac_safe = DigestUtil.verifyCallbackHmac_safe(stringArr, hmac_safe,YeepayEngine.getMerSecret());
+        String localHmac = DigestUtil.getHmac(stringArr, YeepayEngine.getMerSecret());
+        boolean ishmac_safe = DigestUtil.verifyCallbackHmac_safe(stringArr, hmac_safe, YeepayEngine.getMerSecret());
 
-        if(!localHmac.equals(hmac) || !ishmac_safe) {
-            throw new YeepayException("HMAC_ERROR","验证签名错误");
+        if (!localHmac.equals(hmac) || !ishmac_safe) {
+            throw new YeepayException("验证签名错误", "HMAC_ERROR");
         }
     }
 

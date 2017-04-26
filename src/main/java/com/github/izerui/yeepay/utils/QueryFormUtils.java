@@ -1,5 +1,7 @@
 package com.github.izerui.yeepay.utils;
 
+import com.github.izerui.yeepay.YeepayException;
+
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -13,25 +15,24 @@ import java.util.Map;
  */
 public class QueryFormUtils {
 
-    public static Map<String,String> getEncodedQueryParams(Object obj){
-        Map<String,String> params = new HashMap<>();
+    public static Map<String, String> getEncodedQueryParams(Object obj) {
         try {
+            Map<String, String> params = new HashMap<>();
             BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass(), Object.class);
             PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();
 
             for (PropertyDescriptor descriptor : descriptors) {
                 Method readMethod = descriptor.getReadMethod();
-                if(readMethod!=null){
+                if (readMethod != null) {
                     String value = (String) readMethod.invoke(obj);
-                    if(value!=null&&!"".equals(value)){
-                        params.put(descriptor.getName(), URLEncoder.encode(value,"GBK"));
+                    if (value != null && !"".equals(value)) {
+                        params.put(descriptor.getName(), URLEncoder.encode(value, "GBK"));
                     }
                 }
             }
-
+            return params;
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new YeepayException(e.getMessage(),e,"ENCODE_ERROR");
         }
-        return params;
     }
 }

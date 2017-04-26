@@ -2,7 +2,6 @@ package com.github.izerui.yeepay.form;
 
 
 import com.github.izerui.yeepay.YeepayEngine;
-import com.github.izerui.yeepay.YeepayException;
 import com.github.izerui.yeepay.utils.DigestUtil;
 import lombok.Getter;
 import lombok.NonNull;
@@ -40,16 +39,13 @@ public class OrderCancelRequest {
     @Setter
     private String pv_Ver = "1";
 
-    public OrderCancelRequest() throws YeepayException {
-    }
-
     /**
      * 获取签名结果
      *
      * @return
      */
-    public String getHmac() throws YeepayException {
-        String[] strArr = {p0_Cmd, p1_MerId, pb_TrxId,pv_Ver};
+    public String getHmac() {
+        String[] strArr = {p0_Cmd, p1_MerId, pb_TrxId, pv_Ver};
         String hmac = DigestUtil.getHmac(strArr, YeepayEngine.getMerSecret());
         return hmac;
     }

@@ -1,5 +1,6 @@
 package com.github.izerui.yeepay.converter;
 
+import com.github.izerui.yeepay.YeepayException;
 import com.github.izerui.yeepay.form.IVaildHmac;
 import com.github.izerui.yeepay.utils.QueryFormUtils;
 import okhttp3.FormBody;
@@ -27,10 +28,10 @@ public class ConverterFactory extends Converter.Factory {
 
     @Override
     public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        return new RequestBodyConverter(type,parameterAnnotations,methodAnnotations);
+        return new RequestBodyConverter(type, parameterAnnotations, methodAnnotations);
     }
 
-    public static class RequestBodyConverter<T> implements Converter<T,RequestBody>{
+    public static class RequestBodyConverter<T> implements Converter<T, RequestBody> {
 
         private Type type;
         private Annotation[] parameterAnnotations;
@@ -70,7 +71,7 @@ public class ConverterFactory extends Converter.Factory {
         @Override
         public T convert(ResponseBody value) throws IOException {
             String body = value.string();
-            if(body.startsWith("<")){
+            if (body.startsWith("<")) {
                 return null;
             }
             try {
@@ -88,15 +89,14 @@ public class ConverterFactory extends Converter.Factory {
                     }
                 }
 
-                if(t instanceof IVaildHmac){
+                if (t instanceof IVaildHmac) {
                     ((IVaildHmac) t).validateHmac();
                 }
 
                 return t;
 
             } catch (Exception e) {
-                e.printStackTrace();
-                return null;
+                throw new YeepayException(e.getMessage(), e, "CONVERT_ERROR");
             }
         }
     }

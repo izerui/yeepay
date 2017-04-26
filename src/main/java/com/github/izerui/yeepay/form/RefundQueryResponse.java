@@ -9,7 +9,7 @@ import lombok.Setter;
 /**
  * Created by serv on 2017/4/24.
  */
-public class RefundQueryResponse implements IVaildHmac{
+public class RefundQueryResponse implements IVaildHmac {
     /**
      * 业务类型 (固定值)
      */
@@ -37,7 +37,7 @@ public class RefundQueryResponse implements IVaildHmac{
     private String r4_Order;
     /**
      * 退款申请结果
-     *  1: 退款申请成功
+     * 1: 退款申请成功
      * -1: 请求参数不合法：为空,或空字符串
      * -2: 商户不存在
      * -3: 给定的易宝流水号,没有对应的退款记录
@@ -68,18 +68,14 @@ public class RefundQueryResponse implements IVaildHmac{
     @Setter
     private String hmac;
 
-    /**
-     * 验证签名
-     * @throws YeepayException
-     */
     @Override
-    public void validateHmac() throws YeepayException {
-        String[] stringArr	= {r0_Cmd, r1_Code, r2_TrxId, r4_Order, refundStatus, refundFrpStatus};
-        String localHmac	= DigestUtil.getHmac(stringArr, YeepayEngine.getMerSecret());
-        boolean ishmac_safe = DigestUtil.verifyCallbackHmac_safe(stringArr, hmac_safe,YeepayEngine.getMerSecret());
+    public void validateHmac() {
+        String[] stringArr = {r0_Cmd, r1_Code, r2_TrxId, r4_Order, refundStatus, refundFrpStatus};
+        String localHmac = DigestUtil.getHmac(stringArr, YeepayEngine.getMerSecret());
+        boolean ishmac_safe = DigestUtil.verifyCallbackHmac_safe(stringArr, hmac_safe, YeepayEngine.getMerSecret());
 
-        if(!localHmac.equals(hmac) || !ishmac_safe) {
-            throw new YeepayException("HMAC_ERROR","验证签名错误");
+        if (!localHmac.equals(hmac) || !ishmac_safe) {
+            throw new YeepayException("验证签名错误", "HMAC_ERROR");
         }
     }
 }

@@ -18,9 +18,13 @@ import java.util.Map;
  */
 public class YeepayEngine implements IYeepay {
 
-    /** 商户编号 */
+    /**
+     * 商户编号
+     */
     private static String merId;
-    /** 商户秘钥 */
+    /**
+     * 商户秘钥
+     */
     private static String merSecret;
 
     private PayApi api;
@@ -38,7 +42,6 @@ public class YeepayEngine implements IYeepay {
     }
 
 
-
     public String getPayURL(PayRequest request) {
         Call<Void> call = api.payUrl(QueryFormUtils.getEncodedQueryParams(request));
         return call.request().url().toString();
@@ -46,32 +49,32 @@ public class YeepayEngine implements IYeepay {
 
 
     @Override
-    public OrderQueryResponse queryOrder(OrderQueryRequest request) throws YeepayException {
+    public OrderQueryResponse queryOrder(OrderQueryRequest request) {
         Call<OrderQueryResponse> post = api.queryOrder(request);
         return execute(post);
     }
 
     @Override
-    public RefundResponse refund(RefundRequest request) throws YeepayException {
+    public RefundResponse refund(RefundRequest request) {
         Call<RefundResponse> post = api.refund(request);
         return execute(post);
     }
 
     @Override
-    public RefundQueryResponse queryRefund(RefundQueryRequest request) throws YeepayException {
+    public RefundQueryResponse queryRefund(RefundQueryRequest request) {
         Call<RefundQueryResponse> post = api.queryRefund(request);
         return execute(post);
     }
 
 
     @Override
-    public OrderCancelResponse cancelOrder(OrderCancelRequest request) throws YeepayException {
+    public OrderCancelResponse cancelOrder(OrderCancelRequest request) {
         Call<OrderCancelResponse> post = api.cancelOrder(request);
         return execute(post);
     }
 
 
-    public void validateCallback(Map<String,String> request) throws YeepayException{
+    public void validateCallback(Map<String, String> request) {
         String p1_MerId = request.get("p1_MerId");
         String r0_Cmd = request.get("r0_Cmd");
         String r1_Code = request.get("r1_Code");
@@ -89,27 +92,26 @@ public class YeepayEngine implements IYeepay {
         String[] strArr = {p1_MerId, r0_Cmd, r1_Code, r2_TrxId, r3_Amt, r4_Cur, r5_Pid, r6_Order, r7_Uid, r8_MP, r9_BType};
 
         boolean hmacIsCorrect = hmac.equals(DigestUtil.getHmac(strArr, YeepayEngine.getMerSecret()));
-        boolean hmacsafeIsCorrect = DigestUtil.verifyCallbackHmac_safe(strArr, hmac_safe,YeepayEngine.getMerSecret());
+        boolean hmacsafeIsCorrect = DigestUtil.verifyCallbackHmac_safe(strArr, hmac_safe, YeepayEngine.getMerSecret());
 
         if (!hmacIsCorrect || !hmacsafeIsCorrect) {
-            throw new YeepayException("HMAC_ERROR","验证签名错误");
+            throw new YeepayException("验证签名错误", "HMAC_ERROR");
         }
     }
 
 
-
-    private <T> T execute(Call<T> post) throws YeepayException {
+    private <T> T execute(Call<T> post) {
         try {
             Response<T> execute = post.execute();
             return execute.body();
         } catch (IOException e) {
-            throw new YeepayException("-999", "请求失败");
+            throw new YeepayException("请求失败", "EXECUTE_ERROR");
         }
     }
 
-    public static String getMerId() throws YeepayException {
-        if(merId==null){
-            throw new YeepayException("商户编号未设置","-990");
+    public static String getMerId() {
+        if (merId == null) {
+            throw new YeepayException("商户编号未设置", "MERID_ERROR");
         }
         return merId;
     }
@@ -118,9 +120,9 @@ public class YeepayEngine implements IYeepay {
         YeepayEngine.merId = merId;
     }
 
-    public static String getMerSecret() throws YeepayException {
-        if(merSecret==null){
-            throw new YeepayException("商户秘钥未设置","-991");
+    public static String getMerSecret() {
+        if (merSecret == null) {
+            throw new YeepayException("商户秘钥未设置", "MERSECRET_ERROR");
         }
         return merSecret;
     }

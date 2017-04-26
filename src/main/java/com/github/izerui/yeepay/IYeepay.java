@@ -16,42 +16,47 @@ public interface IYeepay {
 
     /**
      * 查询订单
+     *
      * @param request
      * @return
      */
-    OrderQueryResponse queryOrder(OrderQueryRequest request) throws YeepayException;
+    OrderQueryResponse queryOrder(OrderQueryRequest request);
 
     /**
      * 退款
+     *
      * @param request
      * @return
-     * @throws YeepayException
+     * @
      */
-    RefundResponse refund(RefundRequest request) throws YeepayException;
+    RefundResponse refund(RefundRequest request);
 
 
     /**
      * 退款查询
+     *
      * @param request
      * @return
-     * @throws YeepayException
+     * @
      */
-    RefundQueryResponse queryRefund(RefundQueryRequest request) throws YeepayException;
+    RefundQueryResponse queryRefund(RefundQueryRequest request);
 
     /**
      * 撤销订单
+     *
      * @param request
      * @return
-     * @throws YeepayException
+     * @
      */
-    OrderCancelResponse cancelOrder(OrderCancelRequest request) throws YeepayException;
+    OrderCancelResponse cancelOrder(OrderCancelRequest request);
 
 
     /**
      * 验证通知的签名
+     *
      * @param request
-     * @throws YeepayException
+     * @
      */
-    void validateCallback(Map<String,String> request) throws YeepayException;
+    void validateCallback(Map<String, String> request);
 
 }

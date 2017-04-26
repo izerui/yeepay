@@ -89,6 +89,10 @@ public class YeepayEngine implements IYeepay {
         String hmac = request.get("hmac");
         String hmac_safe = request.get("hmac_safe");
 
+        if(hmac==null||"".equals(hmac)){
+            throw new YeepayException("验证签名错误", "HMAC_ERROR");
+        }
+
         String[] strArr = {p1_MerId, r0_Cmd, r1_Code, r2_TrxId, r3_Amt, r4_Cur, r5_Pid, r6_Order, r7_Uid, r8_MP, r9_BType};
 
         boolean hmacIsCorrect = hmac.equals(DigestUtil.getHmac(strArr, YeepayEngine.getMerSecret()));

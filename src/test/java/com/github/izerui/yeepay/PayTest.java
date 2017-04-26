@@ -64,9 +64,9 @@ public class PayTest {
 //        YeepayEngine engine = new YeepayEngine();
 
         RefundRequest request = new RefundRequest();
-        request.setP2_Order("1222223");
+//        request.setP2_Order("1222223");
         request.setP3_Amt("0.01");
-        request.setPb_TrxId("868855800142162222B");
+        request.setPb_TrxId("517283272066134I");
         RefundResponse response = engine.refund(request);
         System.out.println(QueryFormUtils.getEncodedQueryParams(response).toString());
     }

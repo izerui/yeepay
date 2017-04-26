@@ -30,4 +30,8 @@ public class YeepayException extends RuntimeException {
         super(message, cause, enableSuppression, writableStackTrace);
         this.errCode = errCode;
     }
+
+    public String getErrCode() {
+        return errCode;
+    }
 }

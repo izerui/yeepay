@@ -18,7 +18,12 @@ public class RefundQueryResponse implements IVaildHmac {
     private String r0_Cmd;
     /**
      * 查询结果
-     * <li></li>1: 查询成功
+     * <ul>
+     *     <li>1: 查询成功
+     *     <li>-1: 请求参数不合法：为空,或空字符串
+     *     <li>-2: 商户不存在
+     *     <li>-3: 给定的易宝流水号,没有对应的退款记录
+     * </ul>
      */
     @Getter
     @Setter
@@ -38,9 +43,6 @@ public class RefundQueryResponse implements IVaildHmac {
     /**
      * 退款申请结果
      * 1: 退款申请成功
-     * -1: 请求参数不合法：为空,或空字符串
-     * -2: 商户不存在
-     * -3: 给定的易宝流水号,没有对应的退款记录
      */
     @Getter
     @Setter

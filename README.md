@@ -93,3 +93,150 @@ OrderCancelRequest request = new OrderCancelRequest();
 request.setPb_TrxId("123");
 OrderCancelResponse response = engine.cancelOrder(request);
 ```
+
+>备注: 该sdk为原生的易宝接口请求和返回封装,建议在使用时进行二次包装。
+>例如(如果非rpc接口注意安全性校验):
+
+```
+
+@Override
+public String getPayUrl(
+        @RequestParam("order") String order,
+        @RequestParam("amount") String amount,
+        @RequestParam("productName") String productName,
+        @RequestParam(value = "callBackUrl", required = false) String callBackUrl,
+        @RequestParam(value = "info", required = false) String info,
+        @RequestParam(value = "channel",required = false) FrpIdEnum channel) {
+
+    try {
+        PayRequest request = new PayRequest();
+        request.setP2_Order(order);
+        request.setP3_Amt(amount);
+        request.setP5_Pid(productName);
+        request.setP8_Url(callBackUrl);
+        request.setPa_MP(info);
+        if(channel!=null){
+            request.setPd_FrpId(channel.getValue());
+        }
+        recordService.recordRequest(request);
+        return engine.getPayURL(request);
+    }catch (YeepayException e){
+        throw new BusinessException(e.getMessage(),e.getErrCode());
+    }
+}
+
+@Override
+public OrderQueryResponseVo queryOrder(@RequestParam("order") String order) {
+    try {
+        OrderQueryRequest request = new OrderQueryRequest();
+        request.setP2_Order(order);
+        OrderQueryResponse response = engine.queryOrder(request);
+        switch (response.getR1_Code()) {
+            case "1":
+                if(response.getErrorMsg()!=null&&!"".equals(response.getErrorMsg())){
+                    throw new BusinessException(response.getErrorMsg());
+                }
+                recordService.updateOrder(response);
+                return beanMapper.map(response, OrderQueryResponseVo.class);
+            case "50":
+                throw new BusinessException("订单不存在","UN_KNOWN_ORDER_ERROR");
+            default:
+                throw new BusinessException("发生错误,错误码:"+response.getR1_Code()+",请重试","ERROR");
+        }
+    }catch (YeepayException e){
+        throw new BusinessException(e.getMessage(),e.getErrCode());
+    }
+}
+
+
+@Override
+public RefundResponseVo refund(@RequestParam("amount") String amount,
+                               @RequestParam("transactionId") String transactionId) {
+
+    try {
+        RefundRequest request = new RefundRequest();
+        request.setP3_Amt(amount);
+        request.setPb_TrxId(transactionId);
+        RefundResponse response = engine.refund(request);
+
+        switch (response.getR1_Code()) {
+            case "1":
+                return beanMapper.map(response, RefundResponseVo.class);
+            case "2":
+                throw new BusinessException("账户状态无效","ACCOUNT_STATUS_ERROR");
+            case "7":
+                throw new BusinessException("该订单不支持退款","UNREFUND_ERROR");
+            case "10":
+                throw new BusinessException("退款金额超限","TRANSFINITE_ERROR");
+            case "18":
+                throw new BusinessException("余额不足","LACK_FEE_ERROR");
+            case "50":
+                throw new BusinessException("订单不存在","UN_KNOWN_ORDER_ERROR");
+            case "55":
+                throw new BusinessException("历史退款未开通","REFUND_HISTORY_OPENED_ERROR");
+            case "6801":
+                throw new BusinessException("IP 限制","IP_ERROR");
+            case "900":
+                throw new BusinessException("保证金金额不足，请充值","MARGIN_LACK_FEE_ERROR");
+            case "526":
+                throw new BusinessException("订单未支付","UN_PAY_ERROR");
+            case "10803":
+                throw new BusinessException("出款功能关闭，不允许退款，请联系客户经理","NOT_ALLOW_REFUND_ERROR");
+            case "32":
+                throw new BusinessException("无此交易，请重新核实流水号","NO_TRAD_ERROR");
+            default:
+                throw new BusinessException("发生错误,错误码:"+response.getR1_Code()+",请重试","ERROR");
+        }
+    }catch (YeepayException e){
+        throw new BusinessException(e.getMessage(),e.getErrCode());
+    }
+}
+
+
+@Override
+public RefundQueryResponseVo queryRefund(@RequestParam("refundOrder") String refundOrder,
+                                         @RequestParam("transactionId") String transactionId) {
+
+    try {
+        RefundQueryRequest request = new RefundQueryRequest();
+        request.setP2_Order(refundOrder);
+        request.setPb_TrxId(transactionId);
+        RefundQueryResponse response = engine.queryRefund(request);
+        switch (response.getR1_Code()) {
+            case "1":
+                    return beanMapper.map(response, RefundQueryResponseVo.class);
+            case "-1":
+                throw new BusinessException("请求参数不合法：为空,或空字符串","PARAMS_ERROR");
+            case "-2":
+                throw new BusinessException("商户不存在","MER_ERROR");
+            case "-3":
+                throw new BusinessException("给定的流水号,没有对应的退款记录","REFUND_NOT_EXSIT_ERROR");
+            default:
+                throw new BusinessException("发生错误,错误码:"+response.getR1_Code()+",请重试","ERROR");
+        }
+    }catch (YeepayException e){
+        throw new BusinessException(e.getMessage(),e.getErrCode());
+    }
+}
+
+@Override
+public void cancelOrder(@RequestParam("order") String order) {
+    try {
+        OrderCancelRequest request = new OrderCancelRequest();
+        request.setPb_TrxId(order);
+        OrderCancelResponse response = engine.cancelOrder(request);
+        if(response.getR1_Code()==null){
+            throw new BusinessException("发生错误,错误码:"+response.getR1_Code()+",请重试","ERROR");
+        }else if(response.getR1_Code().equals("50")){
+            throw new BusinessException("订单不存在","UN_KNOWN_ORDER_ERROR");
+        }else if(response.getR1_Code().equals("53")){
+            throw new BusinessException("订单已经成功，不可撤销","ORDER_TRADED_ERROR");
+        }
+        if(response.getErrorMsg()!=null&&!"".equals(response.getErrorMsg())){
+            throw new BusinessException(response.getErrorMsg());
+        }
+    }catch (YeepayException e){
+        throw new BusinessException(e.getMessage(),e.getErrCode());
+    }
+}
+```

@@ -19,7 +19,7 @@
 <dependency>
     <groupId>com.github.izerui</groupId>
     <artifactId>yeepay</artifactId>
-    <version>最新版本</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 

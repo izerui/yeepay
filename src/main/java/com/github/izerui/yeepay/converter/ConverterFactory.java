@@ -85,7 +85,9 @@ public class ConverterFactory extends Converter.Factory {
                     if (!PropertyUtils.isWriteable(t, k)) {
                         System.out.println(((Class) type).getName() + " 缺少接收属性 : [" + k + "]");
                     } else {
-                        PropertyUtils.setProperty(t, k, v);
+                        if(v!=null){
+                            PropertyUtils.setProperty(t, k, v);
+                        }
                     }
                 }
 

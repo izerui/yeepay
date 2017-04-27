@@ -40,9 +40,9 @@ public class PayTest {
 //        YeepayEngine engine = new YeepayEngine();
 
         PayRequest request = new PayRequest();
-        request.setP5_Pid("的点点滴滴");
+        request.setP5_Pid("35242111");
         request.setP3_Amt("0.01");
-//        request.setPd_FrpId("CMBCHINA-NET-B2C");
+        request.setPd_FrpId("CCB-NET-B2C");
         String url = engine.getPayURL(request);
         System.out.println(url);
 

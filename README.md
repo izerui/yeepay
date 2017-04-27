@@ -94,6 +94,9 @@ request.setPb_TrxId("123");
 OrderCancelResponse response = engine.cancelOrder(request);
 ```
 
+
+---
+
 ### 注意: 该sdk为原生的易宝接口请求和返回封装,建议在使用时进行二次包装。并要注意非rpc内部接口的话进行安全性校验。
 
 示例:

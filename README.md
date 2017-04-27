@@ -29,8 +29,8 @@
 >通过静态方法调用、或者程序初始化方法中调用
 
 ```
-        YeepayEngine.setMerId("10000457067");
-        YeepayEngine.setMerSecret("U26po59182dV8d7654bo24o5z369408u4sQ3To9j6QuopAbo3gwj4h33mro4");
+YeepayEngine.setMerId("10000457067");
+YeepayEngine.setMerSecret("U26po59182dV8d7654bo24o5z369408u4sQ3To9j6QuopAbo3gwj4h33mro4");
 ```
 
 二、设置请求参数、并完成engine对象建立

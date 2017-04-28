@@ -103,13 +103,7 @@ OrderCancelResponse response = engine.cancelOrder(request);
 
 ```
 @Override
-public String getPayUrl(
-        @RequestParam("order") String order,
-        @RequestParam("amount") String amount,
-        @RequestParam("productName") String productName,
-        @RequestParam(value = "callBackUrl", required = false) String callBackUrl,
-        @RequestParam(value = "info", required = false) String info,
-        @RequestParam(value = "channel",required = false) FrpIdEnum channel) {
+public String getPayUrl(String order,String amount,String productName,String callBackUrl,String info,FrpIdEnum channel) {
 
     try {
         PayRequest request = new PayRequest();
@@ -129,7 +123,7 @@ public String getPayUrl(
 }
 
 @Override
-public OrderQueryResponseVo queryOrder(@RequestParam("order") String order) {
+public OrderQueryResponseVo queryOrder(String order) {
     try {
         OrderQueryRequest request = new OrderQueryRequest();
         request.setP2_Order(order);
@@ -153,8 +147,7 @@ public OrderQueryResponseVo queryOrder(@RequestParam("order") String order) {
 
 
 @Override
-public RefundResponseVo refund(@RequestParam("amount") String amount,
-                               @RequestParam("transactionId") String transactionId) {
+public RefundResponseVo refund(String amount,String transactionId) {
 
     try {
         RefundRequest request = new RefundRequest();
@@ -197,8 +190,7 @@ public RefundResponseVo refund(@RequestParam("amount") String amount,
 
 
 @Override
-public RefundQueryResponseVo queryRefund(@RequestParam("refundOrder") String refundOrder,
-                                         @RequestParam("transactionId") String transactionId) {
+public RefundQueryResponseVo queryRefund(String refundOrder,String transactionId) {
 
     try {
         RefundQueryRequest request = new RefundQueryRequest();
@@ -223,7 +215,7 @@ public RefundQueryResponseVo queryRefund(@RequestParam("refundOrder") String ref
 }
 
 @Override
-public void cancelOrder(@RequestParam("order") String order) {
+public void cancelOrder(String order) {
     try {
         OrderCancelRequest request = new OrderCancelRequest();
         request.setPb_TrxId(order);

@@ -91,9 +91,9 @@ public class ConverterFactory extends Converter.Factory {
                     }
                 }
 
-                if (t instanceof IVaildHmac) {
-                    ((IVaildHmac) t).validateHmac();
-                }
+//                if (t instanceof IVaildHmac) {
+//                    ((IVaildHmac) t).validateHmac();
+//                }
 
                 return t;
 

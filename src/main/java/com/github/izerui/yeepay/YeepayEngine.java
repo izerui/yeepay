@@ -107,7 +107,11 @@ public class YeepayEngine implements IYeepay {
     private <T> T execute(Call<T> post) {
         try {
             Response<T> execute = post.execute();
-            return execute.body();
+            T body = execute.body();
+            if(body instanceof IVaildHmac){
+                ((IVaildHmac) body).validateHmac();
+            }
+            return body;
         } catch (IOException e) {
             throw new YeepayException("请求失败", "EXECUTE_ERROR");
         }
